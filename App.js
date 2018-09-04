@@ -10,43 +10,34 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskList: [
-        {
-          hash: 3321321321,
-          text: 'some task1',
-          done: false
-        },
-        {
-          hash: 3213221321,
-          text: 'some task2',
-          done: false
-        },
-        {
-          hash: 3213215321,
-          text: 'some task3',
-          done: false
-        },
-      ]
+      taskList: []
     };
   }
 
-  addTask = (taskText) => {
-    this.setState((prevState) => {
-      const newTaskObj = {
-        hash: hash(taskText),
-        text: taskText,
-        done: false,
-      };
-      return {
-        taskList: [newTaskObj, ...prevState.taskList]
-      };
+  componentWillMount = async () => {
+    let state = await Expo.SecureStore.getItemAsync('todoAppState');
+    this.setState(() => JSON.parse(state));
+  }
+
+  saveTask = async (taskText) => {
+    const newTaskObj = {
+      hash: hash(taskText),
+      text: taskText,
+      done: false
+    };
+    const newStateObj = {
+      taskList: [ newTaskObj, ...this.state.taskList ]
+    };
+    this.setState(() => {
+      return newStateObj;
     });
+    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TaskInput addTask={this.addTask}/>
+        <TaskInput addTask={this.saveTask}/>
         <TaskList taskList={this.state.taskList}/>
       </View>
     );
