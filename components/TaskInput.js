@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, TextInput } from 'react-native'
+import hash from 'string-hash'
 
 export class TaskInput extends Component {
 
@@ -23,11 +24,12 @@ export class TaskInput extends Component {
                         }
                     }
                     onSubmitEditing={() => {
-                            if(this.state.text !== '') {
-                                this.props.addTask(this.state.text);
-                                this.textInput.clear();
-                                this.setState({text: ''});
-                            }
+                        this.textInput.clear();
+                        const isDuplicate = (this.props.hashList.indexOf(hash(this.state.text)) !== -1);
+                        if((this.state.text !== '') && !isDuplicate) {
+                            this.props.addTask(this.state.text);
+                            this.setState({text: ''});
+                        }
                         }
                     }
                 />

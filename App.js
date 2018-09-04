@@ -35,9 +35,10 @@ export default class App extends React.Component {
   }
 
   render() {
+    const hashList = this.state.taskList.map(taskObj => taskObj.hash);
     return (
       <View style={styles.container}>
-        <TaskInput addTask={this.saveTask}/>
+        <TaskInput addTask={this.saveTask} hashList={hashList}/>
         <TaskList taskList={this.state.taskList}/>
       </View>
     );
