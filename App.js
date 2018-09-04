@@ -34,12 +34,30 @@ export default class App extends React.Component {
     await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
+  checkTask = async (hash) => {
+    const newTaskList = this.state.taskList.map((task) => {
+      if (task.hash === hash) {
+        return {
+          hash: task.hash,
+          text: task.text,
+          done: !task.done
+        };
+      }
+      return task;
+    });
+    const newStateObj = {
+      taskList: newTaskList
+    };
+    this.setState(() => newStateObj);
+    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+  }
+
   render() {
     const hashList = this.state.taskList.map(taskObj => taskObj.hash);
     return (
       <View style={styles.container}>
         <TaskInput addTask={this.saveTask} hashList={hashList}/>
-        <TaskList taskList={this.state.taskList}/>
+        <TaskList taskList={this.state.taskList} checkTask={this.checkTask}/>
       </View>
     );
   }

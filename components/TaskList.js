@@ -6,13 +6,11 @@ export class TaskList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
-        
     }
 
     _renderItem = (task) => {
         return (
-            <Task key={task.item.hash} taskText={task.item.text + ' ' + task.item.hash}/>
+            <Task checkTask={this.props.checkTask} key={task.item.hash} taskText={task.item.text} done={task.item.done} hash={task.item.hash}/>
         );
     }
 
