@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Task } from './Task'
 import { View, Text } from 'react-native'
-import { hasha } from 'hasha';
+import hash from 'string-hash';
 
 export class TaskList extends Component {
 
@@ -9,15 +9,13 @@ export class TaskList extends Component {
 
     render() {
 
-
-
         return (
             <View>
                 {this.props.taskList.map((task) => {
-                    console.log(hasha(task.text));
+                    console.log(hash(task.text));
                     
                     return (
-                        <Task key={task.id} taskText={task.text + hasha(task.text)}/>
+                        <Task key={hash(task.text)} taskText={task.text + hash(task.text)}/>
                     );
                 })}
             </View>
