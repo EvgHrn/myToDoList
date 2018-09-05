@@ -19,7 +19,7 @@ export class TaskList extends Component {
     render() {
 
         return (
-            <View>
+            <View style={{ paddingHorizontal: 20 }}>
                 <FlatList
                     data={this.props.taskList}
                     keyExtractor={this._keyExtractor}

@@ -15,7 +15,10 @@ export class TaskInput extends Component {
     render() {
         return (
             <View>
-                <TextInput
+                <TextInput style={{
+                    height: 50,
+                    fontSize: 20,
+                }}
                     ref={(input) => {this.textInput = input}}
                     placeholder="Add a new task"
                     onChangeText={

@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TaskList } from './components/TaskList';
 import { TaskInput } from './components/TaskInput';
+import { CheckAllButton } from './components/CheckAllButton';
+import { RemoveAllButton } from './components/RemoveAllButton';
 import hash from 'string-hash';
 import Expo from 'expo';
 
@@ -60,12 +62,41 @@ export default class App extends React.Component {
     await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
+  removeAllTasks = async () => {
+    const newStateObj = {
+      taskList: []
+    };
+    this.setState(() => newStateObj);
+    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+  }
+
+  checkAllButton = async () => {
+    const newTaskList = this.state.taskList.map((task) => {
+      return {
+        hash: task.hash,
+        text: task.text,
+        done: true
+      };
+    });
+    const newStateObj = {
+      taskList: newTaskList
+    };
+    this.setState(() => newStateObj);
+    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+  }
+
   render() {
     const hashList = this.state.taskList.map(taskObj => taskObj.hash);
     return (
       <View style={styles.container}>
-        <TaskInput addTask={this.saveTask} hashList={hashList}/>
-        <TaskList removeTask={this.removeTask} taskList={this.state.taskList} checkTask={this.checkTask}/>
+        <View style={styles.inputAndTasksBlock}>
+          <TaskInput addTask={this.saveTask} hashList={hashList}/>
+          <TaskList removeTask={this.removeTask} taskList={this.state.taskList} checkTask={this.checkTask}/>
+        </View>
+        <View style={styles.bottomButtons}>
+          <CheckAllButton checkAllButton={this.checkAllButton}/>
+          <RemoveAllButton removeAllTasks={this.removeAllTasks}/>
+        </View>
       </View>
     );
   }
@@ -73,11 +104,18 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Expo.Constants.statusBarHeight,
     flex: 1,
+    marginTop: Expo.Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 20
-    // alignItems: 'center',
-    //justifyContent: 'center',
   },
+  inputAndTasksBlock: {
+    flex: 1,
+  },
+  bottomButtons: {
+    height: 80,
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  }
 });

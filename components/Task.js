@@ -7,9 +7,6 @@ export class Task extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            done: this.props.done
-        }
     }
 
     render() {
@@ -44,12 +41,9 @@ export class Task extends Component {
                         marginHorizontal: 20
                     }}
                         onClick={()=>{
-                            this.setState({
-                                done: !this.state.done
-                            });
                             this.props.checkTask(this.props.hash);
                         }}
-                        isChecked={this.state.done}
+                        isChecked={this.props.done}
                     />
                     <TouchableOpacity
                         onPress={() => this.props.removeTask(this.props.hash)}>

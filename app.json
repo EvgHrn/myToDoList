@@ -24,7 +24,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.uuu.tdlstorage"
+      "package": "com.uuu.myToDoList"
     }
   }
 }
