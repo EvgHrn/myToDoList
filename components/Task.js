@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,TouchableOpacity, Image } from 'react-native'
-
-import CheckBox from 'react-native-check-box'
+import { View, Text,TouchableOpacity, Image, CheckBox } from 'react-native'
 
 export class Task extends Component {
 
@@ -40,10 +38,10 @@ export class Task extends Component {
                     <CheckBox style={{
                         marginHorizontal: 20
                     }}
-                        onClick={()=>{
+                        onValueChange={()=>{
                             this.props.checkTask(this.props.hash);
                         }}
-                        isChecked={this.props.done}
+                        value={this.props.done}
                     />
                     <TouchableOpacity
                         onPress={() => this.props.removeTask(this.props.hash)}>
