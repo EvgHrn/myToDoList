@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TaskList } from './components/TaskList';
 import { TaskInput } from './components/TaskInput';
 import { CheckAllButton } from './components/CheckAllButton';
 import { RemoveAllButton } from './components/RemoveAllButton';
 import hash from 'string-hash';
-import Expo from 'expo';
+import { SecureStore, Constants } from 'expo';
 
 export default class App extends React.Component {
 
@@ -17,7 +17,7 @@ export default class App extends React.Component {
   }
 
   componentWillMount = async () => {
-    let state = await Expo.SecureStore.getItemAsync('todoAppState');
+    let state = await SecureStore.getItemAsync('todoAppState');
     this.setState(() => JSON.parse(state));
   }
 
@@ -33,7 +33,7 @@ export default class App extends React.Component {
     this.setState(() => {
       return newStateObj;
     });
-    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+    await SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   checkTask = async (hash) => {
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       taskList: newTaskList
     };
     this.setState(() => newStateObj);
-    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+    await SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   removeTask = async (hash) => {
@@ -59,7 +59,7 @@ export default class App extends React.Component {
       taskList: this.state.taskList.filter(task => (task.hash !== hash))
     };
     this.setState(() => newStateObj);
-    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+    await SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   removeAllTasks = async () => {
@@ -67,7 +67,7 @@ export default class App extends React.Component {
       taskList: []
     };
     this.setState(() => newStateObj);
-    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+    await SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   checkAllButton = async () => {
@@ -82,7 +82,7 @@ export default class App extends React.Component {
       taskList: newTaskList
     };
     this.setState(() => newStateObj);
-    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+    await SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
   render() {
@@ -105,7 +105,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Expo.Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
   },
   inputAndTasksBlock: {

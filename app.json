@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "tdlstorage",
-    "description": "This project is really great.",
-    "slug": "tdlstorage",
+    "name": "myToDoList",
+    "description": "Simple TODO list app.",
+    "slug": "myToDoList",
     "privacy": "public",
     "sdkVersion": "29.0.0",
     "platforms": ["ios", "android"],
@@ -10,9 +10,14 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "ldpi": "./assets/splash.png",
+      "mdpi": "./assets/splash.png",
+      "hdpi": "./assets/splash.png",
+      "xhdpi": "./assets/splash.png",
+      "xxhdpi": "./assets/splash.png",
+      "xxxhdpi": "./assets/splash.png",
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
