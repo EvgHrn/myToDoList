@@ -29,7 +29,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.uuu.myToDoList"
+      "package": "com.uuu.myToDoList",
+      "permissions": []
     }
   }
 }
