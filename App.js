@@ -52,12 +52,20 @@ export default class App extends React.Component {
     await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
   }
 
+  removeTask = async (hash) => {
+    const newStateObj = {
+      taskList: this.state.taskList.filter(task => (task.hash !== hash))
+    };
+    this.setState(() => newStateObj);
+    await Expo.SecureStore.setItemAsync('todoAppState', JSON.stringify(newStateObj));
+  }
+
   render() {
     const hashList = this.state.taskList.map(taskObj => taskObj.hash);
     return (
       <View style={styles.container}>
         <TaskInput addTask={this.saveTask} hashList={hashList}/>
-        <TaskList taskList={this.state.taskList} checkTask={this.checkTask}/>
+        <TaskList removeTask={this.removeTask} taskList={this.state.taskList} checkTask={this.checkTask}/>
       </View>
     );
   }
@@ -68,6 +76,7 @@ const styles = StyleSheet.create({
     marginTop: Expo.Constants.statusBarHeight,
     flex: 1,
     backgroundColor: '#fff',
+    padding: 20
     // alignItems: 'center',
     //justifyContent: 'center',
   },

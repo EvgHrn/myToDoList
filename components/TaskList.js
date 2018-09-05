@@ -10,7 +10,7 @@ export class TaskList extends Component {
 
     _renderItem = (task) => {
         return (
-            <Task checkTask={this.props.checkTask} key={task.item.hash} taskText={task.item.text} done={task.item.done} hash={task.item.hash}/>
+            <Task removeTask={this.props.removeTask} checkTask={this.props.checkTask} key={task.item.hash} taskText={task.item.text} done={task.item.done} hash={task.item.hash}/>
         );
     }
 

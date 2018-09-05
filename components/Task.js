@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text,TouchableOpacity, Image } from 'react-native'
+
 import CheckBox from 'react-native-check-box'
 
 export class Task extends Component {
@@ -17,25 +18,50 @@ export class Task extends Component {
         return (
             <View
                 style={{
+                    paddingVertical: 10,
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     opacity: opacity
                 }}>
-                <Text style={{
-                    textDecorationLine: textDecorationLine
+                <View style={{
+                    flex: 1,
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}>
+                    <Text style={{
+                        textDecorationLine: textDecorationLine,
+                    }}>
+                        {this.props.taskText}
+                    </Text>
+                </View>
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}>
-                    {this.props.taskText}
-                </Text>
-                <CheckBox
-                    onClick={()=>{
-                        this.setState({
-                            done: !this.state.done
-                        });
-                        this.props.checkTask(this.props.hash);
+                    <CheckBox style={{
+                        marginHorizontal: 20
                     }}
-                    isChecked={this.state.done}
-                />
+                        onClick={()=>{
+                            this.setState({
+                                done: !this.state.done
+                            });
+                            this.props.checkTask(this.props.hash);
+                        }}
+                        isChecked={this.state.done}
+                    />
+                    <TouchableOpacity
+                        onPress={() => this.props.removeTask(this.props.hash)}>
+                        <Image
+                            style={{
+                                width: 14,
+                                height: 14
+                            }}
+                            source={require('../assets/removeButton.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
