@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text,TouchableOpacity, Image, CheckBox } from 'react-native'
+import { View, Text, TouchableOpacity, Image, CheckBox } from 'react-native'
 
 export class Task extends Component {
 
@@ -13,7 +13,7 @@ export class Task extends Component {
         return (
             <View
                 style={{
-                    paddingVertical: 10,
+                    paddingVertical: 6,
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -25,6 +25,7 @@ export class Task extends Component {
                         alignItems: 'center'
                     }}>
                     <Text style={{
+                        fontSize: 18,
                         textDecorationLine: textDecorationLine,
                     }}>
                         {this.props.taskText}
@@ -36,7 +37,7 @@ export class Task extends Component {
                     alignItems: 'center',
                 }}>
                     <CheckBox style={{
-                        marginHorizontal: 20
+                        marginLeft: 20
                     }}
                         onValueChange={()=>{
                             this.props.checkTask(this.props.hash);
@@ -45,13 +46,18 @@ export class Task extends Component {
                     />
                     <TouchableOpacity
                         onPress={() => this.props.removeTask(this.props.hash)}>
-                        <Image
+                        <Text style={{
+                            padding: 10,
+                        }}>
+                            X
+                        </Text>
+                        {/* <Image
                             style={{
                                 width: 14,
                                 height: 14
                             }}
                             source={require('../assets/removeButton.png')}
-                        />
+                        /> */}
                     </TouchableOpacity>
                 </View>
             </View>

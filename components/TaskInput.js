@@ -14,7 +14,7 @@ export class TaskInput extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{ paddingHorizontal: 30 }}>
                 <TextInput style={{
                     height: 50,
                     fontSize: 20,
